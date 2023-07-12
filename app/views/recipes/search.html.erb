@@ -1,0 +1,33 @@
+<h1>Search Recipes</h1>
+
+<%= form_tag(search_recipes_path, method: :get) do %>
+  <div>
+    <%= label_tag 'Cuisine' %>
+    <%= text_field_tag 'cuisine' %>
+  </div>
+
+  <div>
+    <%= label_tag 'Ingredient' %>
+    <%= text_field_tag 'ingredient' %>
+  </div>
+
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<% if @recipes.any? %>
+  <h2>Matching Recipes</h2>
+
+  <ul>
+    <% @recipes.each do |recipe| %>
+      <li>
+        <strong><%= recipe.name %></strong> - Cooking time: <%= recipe.cooking_time %> min
+        <br>
+        <%= recipe.instructions %>
+        <br>
+        Ingredients: <%= recipe.ingredients.pluck(:name).join(', ') %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No recipes found.</p>
+<% end %>
